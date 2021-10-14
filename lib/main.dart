@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:icontact/home.dart';
+
+import 'package:icontact/page/contacts_page.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
 
 void main() {
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     /// Logo with animated Colorize text
     // ignore: non_constant_identifier_names
     Widget Splash = SplashScreenView(
-      navigateRoute: const Homepage(),
+      navigateRoute: const ContactsPage(),
       duration: 5000,
       imageSize: 150,
       imageSrc: "images/icon.png",

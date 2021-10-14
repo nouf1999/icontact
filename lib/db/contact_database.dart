@@ -1,4 +1,6 @@
+import 'package:icontact/model/contact.dart';
 import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
 class ContactsDatabase {
   static final ContactsDatabase instance = ContactsDatabase._init();
@@ -10,7 +12,7 @@ class ContactsDatabase {
   Future<Database> get database async {
     if (_database != null) return _database!;
 
-    _database = await _initDB('notes.db');
+    _database = await _initDB('contact.db');
     return _database!;
   }
 
