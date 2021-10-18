@@ -1,78 +1,36 @@
-// ignore_for_file: prefer_const_declarations
-
-const String tableContacts = 'contact';
-
-class ContactFields {
-  static final List<String> values = [
-    /// Add all fields
-    id, isImportant, firstName, lastName, phoneNumber, emailAddress, time
-  ];
-
-  static final String id = '_id';
-  static final String isImportant = 'isImportant';
-  static final String firstName = 'firstName';
-  static final String lastName = 'lastName';
-
-  static final String phoneNumber = 'phoneNumber';
-  static final String emailAddress = 'emailAddress';
-  static final String time = 'time';
-}
+import 'package:icontact/db/database_provider.dart';
 
 class Contact {
-  final int? id;
-  final bool isImportant;
-  final String firstName;
-  final String lastName;
-  final String phoneNumber;
-  final String emailAddress;
-  final DateTime createdTime;
+  int? id = 0;
+  String name = '';
+  String phone = '(+226)';
+  String email = '';
+  String location = '';
+  String avatar = '';
+  int favorite = 0;
 
-  const Contact({
-    this.id,
-    required this.isImportant,
-    required this.firstName,
-    required this.lastName,
-    required this.phoneNumber,
-    required this.emailAddress,
-    required this.createdTime,
-  });
+  Contact(
+      this.id, this.name, this.phone, this.email, this.location, this.avatar);
 
-  Contact copy({
-    int? id,
-    bool? isImportant,
-    String? firstName,
-    String? lastName,
-    String? phoneNumber,
-    String? emailAddress,
-    DateTime? createdTime,
-  }) =>
-      Contact(
-        id: id ?? this.id,
-        isImportant: isImportant ?? this.isImportant,
-        firstName: firstName ?? this.firstName,
-        lastName: lastName ?? this.lastName,
-        phoneNumber: phoneNumber ?? this.phoneNumber,
-        emailAddress: emailAddress ?? this.emailAddress,
-        createdTime: createdTime ?? this.createdTime,
-      );
+  Contact.fromMap(Map<String, dynamic> map) {
+    id = map["id"];
+    name = map["name"];
+    phone = map["phone"];
+    email = map["email"];
+    location = map["location"];
+    avatar = map["avatar"];
+    favorite = map["favorite"];
+  }
 
-  static Contact fromJson(Map<String, Object?> json) => Contact(
-        id: json[ContactFields.id] as int?,
-        isImportant: json[ContactFields.isImportant] == 1,
-        firstName: json[ContactFields.firstName] as String,
-        lastName: json[ContactFields.lastName] as String,
-        phoneNumber: json[ContactFields.phoneNumber] as String,
-        emailAddress: json[ContactFields.emailAddress] as String,
-        createdTime: DateTime.parse(json[ContactFields.time] as String),
-      );
-
-  Map<String, Object?> toJson() => {
-        ContactFields.id: id,
-        ContactFields.isImportant: isImportant ? 1 : 0,
-        ContactFields.firstName: firstName,
-        ContactFields.lastName: lastName,
-        ContactFields.phoneNumber: phoneNumber,
-        ContactFields.emailAddress: emailAddress,
-        ContactFields.time: createdTime.toIso8601String(),
-      };
+  Map<String, dynamic> toMap() {
+    return {
+      DatabaseProvider.columnId: id,
+      DatabaseProvider.columnName: name,
+      DatabaseProvider.columnPhone: phone,
+      DatabaseProvider.columnEmail: email,
+      DatabaseProvider.columnLocation: location,
+      DatabaseProvider.columnAvatar: avatar,
+      DatabaseProvider.columnFavorite: favorite
+    };
+  }
 }
